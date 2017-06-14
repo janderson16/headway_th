@@ -27,6 +27,10 @@ module Admin
       end
     end
 
+    def show
+      @user = User.find(params[:id])
+    end
+
     def impersonate
       user = User.find(params[:id])
       track_impersonation(user, 'Start')
@@ -44,7 +48,8 @@ module Admin
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
-                                   :password, :password_confirmation)
+                                   :password, :password_confirmation,
+                                   roles: [])
     end
 
     def track_impersonation(user, status)

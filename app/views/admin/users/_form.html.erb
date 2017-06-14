@@ -16,5 +16,11 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %><br>
 
+  <% for role in User::ROLES %>
+    <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+    <%= label_tag "user_roles_#{role}" %><br />
+  <% end %>
+  <%= hidden_field_tag "user[roles][]", "" %>
+
   <%= f.submit %>
 <% end %>
