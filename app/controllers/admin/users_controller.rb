@@ -19,10 +19,10 @@ module Admin
         session[:user_id] = @user.id
         redirect_to admin_users_path
       elsif User.exists?(['email LIKE ?', "%#{@user.email}%"])
-        txt = "Email already registered with an account!"
+        txt = 'Email already registered with an account!'
         redirect_to new_admin_user_path, alert: txt
       else
-        txt = "Please check that all fields were filled in correctly."
+        txt = 'Please check that all fields were filled in correctly.'
         redirect_to new_admin_user_path, alert: txt
       end
     end
@@ -34,7 +34,7 @@ module Admin
     def update
       @user = User.find(params[:id])
       if @user.update(user_params)
-        txt = "User successfully updated."
+        txt = 'User successfully updated.'
         redirect_to admin_users_path, alert: txt
       else
         redirect_to edit_admin_user_path(@user)
