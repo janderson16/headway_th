@@ -1,5 +1,6 @@
 h1
   | Listing Users
+p = link_to "Create a New User", new_user_path
 table
   thead
     tr
@@ -9,6 +10,8 @@ table
         | Last Name
       th
         | Email
+      th
+        | Roles
       th
       th
       th
@@ -21,6 +24,9 @@ table
           = user.last_name
         td
           = link_to user.email, impersonate_admin_user_path(user)
+        td
+          - user.roles.each do |role|
+              p = role
         td
           = link_to 'Show', user
         td
