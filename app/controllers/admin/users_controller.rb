@@ -9,6 +9,9 @@ module Admin
       respond_with(@users)
     end
 
+    def new
+    end
+    
     def impersonate
       user = User.find(params[:id])
       track_impersonation(user, 'Start')
