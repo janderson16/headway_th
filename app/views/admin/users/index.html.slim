@@ -26,7 +26,7 @@ table id = "users"
           = link_to user.email, impersonate_admin_user_path(user)
         td
           - user.roles.each do |role|
-              p = role
+              p = role.capitalize
         td
           = link_to 'Show', user
         td
