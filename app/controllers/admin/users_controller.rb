@@ -10,8 +10,23 @@ module Admin
     end
 
     def new
+      @user = User.new
     end
-    
+
+    def create
+      @user = User.new(user_params)
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to admin_users_path
+      elsif User.exists?(['email LIKE ?', "%#{@user.email}%"])
+        txt = "Email already registered with an account!"
+        redirect_to new_admin_user_path, alert: txt
+      else
+        txt = "Please check that all fields were filled in correctly."
+        redirect_to new_admin_user_path, alert: txt
+      end
+    end
+
     def impersonate
       user = User.find(params[:id])
       track_impersonation(user, 'Start')
@@ -26,6 +41,11 @@ module Admin
     end
 
     private
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email,
+                                   :password, :password_confirmation)
+    end
 
     def track_impersonation(user, status)
       analytics_track(
