@@ -17,11 +17,9 @@ feature 'Edit existing user' do
     sign_in(admin.email, admin.password)
     visit admin_users_path
 
-    save_and_open_page
     within ('table#users tr:nth-child(2)') do
       click_on "Edit"
     end
-    expect(current_path).to eq(new_admin_user_path)
 
     fill_in "user[first_name]", with: "Jean"
     fill_in "user[last_name]", with: "Smith"
