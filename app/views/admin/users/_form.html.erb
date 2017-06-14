@@ -9,12 +9,14 @@
   <%= f.label :email %>
   <%= f.text_field :email %><br>
 
-  <%= f.label :password %>
-  (must be at least 8 characters)
-  <%= f.password_field :password %><br>
+  <% if @user.id == nil %>
+    <%= f.label :password %>
+    (must be at least 8 characters)
+    <%= f.password_field :password %><br>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %><br>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %><br>
+  <% end %>
 
   <% for role in User::ROLES %>
     <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>

@@ -27,8 +27,18 @@ module Admin
       end
     end
 
-    def show
+    def edit
       @user = User.find(params[:id])
+    end
+
+    def update
+      @user = User.find(params[:id])
+      if @user.update(user_params)
+        txt = "User successfully updated."
+        redirect_to admin_users_path, alert: txt
+      else
+        redirect_to edit_admin_user_path(@user)
+      end
     end
 
     def impersonate
